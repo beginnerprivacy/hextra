@@ -3,8 +3,11 @@
 {{- $footerSwitchesVisible := and $enableFooterSwitches (or hugo.IsMultilingual $displayThemeToggle) -}}
 {{- $copyrightSectionVisible := or (.Site.Params.footer.displayPoweredBy | default true) .Site.Params.footer.displayCopyright -}}
 
-{{- $copyright := (T "copyright") | default "© 2024 Hextra." -}}
-{{- $poweredBy := (T "poweredBy") | default "Powered by Hextra" -}}
+{{- $logoPath := .Site.Params.navbar.logo.path | default "images/logo.svg" -}}
+{{- $logoLink := .Site.Params.navbar.logo.link | default .Site.Home.RelPermalink -}}
+{{- $logoWidth := .Site.Params.navbar.logo.width | default "30" -}}
+{{- $logoHeight := .Site.Params.navbar.logo.height | default "30" -}}
+{{- $logoDarkPath := .Site.Params.navbar.logo.dark | default $logoPath -}}
 
 {{- $footerWidth := "hx-max-w-screen-xl" -}}
 {{- with .Site.Params.footer.width -}}
@@ -15,39 +18,54 @@
   {{ end -}}
 {{- end -}}
 
-
 <footer class="hextra-footer hx-bg-gray-100 hx-pb-[env(safe-area-inset-bottom)] dark:hx-bg-neutral-900 print:hx-bg-transparent">
-  {{- if $footerSwitchesVisible -}}
-    <div class="hx-mx-auto hx-flex hx-gap-2 hx-py-2 hx-px-4 {{ $footerWidth }}">
-      {{- partial "language-switch.html" (dict "context" .) -}}
-      {{- with $displayThemeToggle }}{{ partial "theme-toggle.html" }}{{ end -}}
-    </div>
-    {{- if or hugo.IsMultilingual $displayThemeToggle -}}
-      <hr class="dark:hx-border-neutral-800" />
-    {{- end -}}
-  {{- end -}}
-    <div
-      class="hextra-custom-footer {{ $footerWidth }} hx-pl-[max(env(safe-area-inset-left),1.5rem)] hx-pr-[max(env(safe-area-inset-right),1.5rem)] hx-text-gray-600 dark:hx-text-gray-400"
-    >
-      {{- partial "custom/footer.html" (dict "context" . "switchesVisible" $footerSwitchesVisible "copyrightVisible" $copyrightSectionVisible) -}}
-    </div>
-    {{- if $copyrightSectionVisible -}}
-      <div
-        class="{{ $footerWidth }} hx-mx-auto hx-flex hx-justify-center hx-py-12 hx-pl-[max(env(safe-area-inset-left),1.5rem)] hx-pr-[max(env(safe-area-inset-right),1.5rem)] hx-text-gray-600 dark:hx-text-gray-400 md:hx-justify-start"
-      >
-        <div class="hx-flex hx-w-full hx-flex-col hx-items-center sm:hx-items-start">
-            {{- if (.Site.Params.footer.displayPoweredBy | default true) }}<div class="hx-font-semibold">{{ template "theme-credit" $poweredBy }}</div>{{- end -}}
-            {{- if .Site.Params.footer.displayCopyright }}<div class="hx-mt-6 hx-text-xs">{{ $copyright | markdownify }}</div>{{- end -}}
-        </div>
+  <div class="hextra-custom-footer hx-pl-[max(env(safe-area-inset-left),1.5rem)] hx-pr-[max(env(safe-area-inset-right),1.5rem)] hx-text-gray-600 dark:hx-text-gray-400">
+    <div class="footer-content hx-flex hx-justify-between hx-items-center hx-py-4">
+      <!-- Left Section -->
+      <div class="left-footer-section hx-text-sm" style="flex: 0 0 33.33%;">
+        <p>A beginner-friendly roadmap for enhancing your online privacy.</p>
+        <p><a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener noreferrer">CC BY-SA 4.0</a> Beginner Privacy & Contributors</p>
       </div>
-    {{- end -}}
+      <!-- Middle Section -->
+      <div class="middle-footer-section hx-flex hx-justify-center hx-items-center" style="flex: 0 0 33.33%;">
+        <a href="{{ .Site.Home.RelPermalink }}">
+          <img class="hx-block dark:hx-hidden" src="{{ $logoPath | relURL }}" alt="{{ .Site.Title }}" height="{{ $logoHeight }}" width="{{ $logoWidth }}" />
+          <img class="hx-hidden dark:hx-block" src="{{ $logoDarkPath | relURL }}" alt="{{ .Site.Title }}" height="{{ $logoHeight }}" width="{{ $logoWidth }}" />
+        </a>
+      </div>
+      <!-- Right Section -->
+      <div class="right-footer-section hx-flex hx-justify-end hx-gap-4" style="flex: 0 0 33.33%;">
+        <a href="https://x.com" title="𝕏" target="_blank" rel="noopener noreferrer" class="hx-text-gray-600 dark:hx-text-gray-400 hover:hx-text-gray-800 dark:hover:hx-text-gray-200">
+          {{ partial "utils/icon.html" (dict "name" "x-twitter" "attributes" "height=20") }}
+        </a>
+        <a href="https://youtube.com" title="YouTube" target="_blank" rel="noopener noreferrer" class="hx-text-gray-600 dark:hx-text-gray-400 hover:hx-text-gray-800 dark:hover:hx-text-gray-200">
+          {{ partial "utils/icon.html" (dict "name" "youtube" "attributes" "height=20") }}
+        </a>
+        <a href="https://odysee.com" title="Odysee" target="_blank" rel="noopener noreferrer" class="hx-text-gray-600 dark:hx-text-gray-400 hover:hx-text-gray-800 dark:hover:hx-text-gray-200">
+          {{ partial "utils/icon.html" (dict "name" "odysee" "attributes" "height=20") }}
+        </a>
+        <a href="https://tiktok.com" target="_blank" title="TikTok" rel="noopener noreferrer" class="hx-text-gray-600 dark:hx-text-gray-400 hover:hx-text-gray-800 dark:hover:hx-text-gray-200">
+          {{ partial "utils/icon.html" (dict "name" "tiktok" "attributes" "height=20") }}
+        </a>
+        <a href="https://github.com" title="GitHub" target="_blank" rel="noopener noreferrer" class="hx-text-gray-600 dark:hx-text-gray-400 hover:hx-text-gray-800 dark:hover:hx-text-gray-200">
+          {{ partial "utils/icon.html" (dict "name" "github" "attributes" "height=20") }}
+        </a>
+        <a href="" target="_blank" title="Tor Website (Coming Soon!)" rel="noopener noreferrer" class="hx-text-gray-600 dark:hx-text-gray-400 hover:hx-text-gray-800 dark:hover:hx-text-gray-200">
+          {{ partial "utils/icon.html" (dict "name" "tor-website" "attributes" "height=20") }}
+        </a>
+        <a href="" target="_blank" title="SimpleX Chat (Coming Soon!)" rel="noopener noreferrer" class="hx-text-gray-600 dark:hx-text-gray-400 hover:hx-text-gray-800 dark:hover:hx-text-gray-200">
+          {{ partial "utils/icon.html" (dict "name" "simplex" "attributes" "height=20") }}
+        </a>
+      </div>
+    </div>
+  </div>
 </footer>
 
 {{- define "theme-credit" -}}
   <a class="hx-flex hx-text-sm hx-items-center hx-gap-1 hx-text-current" target="_blank" rel="noopener noreferrer" title="Hextra GitHub Homepage" href="https://github.com/imfing/hextra">
     <span>
       {{- . | markdownify -}}
-      {{- if strings.Contains . "Hextra" -}}
+      {{- if strings.Contains . " Hextra" -}}
         {{- partial "utils/icon.html" (dict "name" "hextra" "attributes" `height=1em class="hx-inline-block ltr:hx-ml-1 rtl:hx-mr-1 hx-align-[-2.5px]"`) -}}
       {{- end -}}
     </span>

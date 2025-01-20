@@ -19,10 +19,7 @@
         {{- if not $hideLabel }}<span>{{ site.Language.LanguageName }}</span>{{ end -}}
       </div>
     </button>
-    <ul
-      class="language-options hx-hidden hx-z-20 hx-max-h-64 hx-overflow-auto hx-rounded-md hx-ring-1 hx-ring-black/5 hx-bg-white hx-py-1 hx-text-sm hx-shadow-lg dark:hx-ring-white/20 dark:hx-bg-neutral-800"
-      style="position: fixed; inset: auto auto 0px 0px; margin: 0px; min-width: 100px;"
-    >
+    <ul class="language-options hx-hidden hx-z-20 hx-max-h-64 hx-overflow-auto hx-rounded-md hx-ring-1 hx-ring-black/5 hx-bg-white hx-py-1 hx-text-sm hx-shadow-lg dark:hx-ring-white/20 dark:hx-bg-neutral-800">
       {{ range site.Languages }}
         {{ $link := partial "utils/lang-link" (dict "lang" .Lang "context" $page) }}
         <li class="hx-flex hx-flex-col">
