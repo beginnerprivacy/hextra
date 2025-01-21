@@ -6,6 +6,7 @@
 {{- $style := .Get "style" -}}
 {{- $icon := .Get "icon" -}}
 {{- $link := .Get "link" -}}
+{{- $displayVertical := .Get "displayVertical" -}}
 
 {{- $external := hasPrefix $link "http" -}}
 {{- $href := cond (strings.HasPrefix $link "/") ($link | relURL) $link -}}
@@ -30,6 +31,13 @@
     </h3>
     <p class="hx-text-gray-500 dark:hx-text-gray-400 hx-text-sm hx-leading-6">{{ $subtitle | markdownify }}</p>
   </div>
+  {{- if eq $displayVertical "true" -}}
+    <div class="vertical-line"></div>
+  {{- else if eq $displayVertical "false" -}}
+
+  {{- else -}}
+    <div class="horizontal-line"></div>
+  {{- end -}}
   {{- with $image -}}
     <img src="{{ . }}" class="hx-absolute hx-max-w-none {{ $imageClass }}" alt="{{ $title }}" />
   {{- end -}}
