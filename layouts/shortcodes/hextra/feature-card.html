@@ -34,7 +34,9 @@
   {{- if eq $displayVertical "true" -}}
     <div class="vertical-line"></div>
   {{- else if eq $displayVertical "false" -}}
-
+  {{- else if eq $displayVertical "both" -}}
+    <div class="vertical-line"></div>
+    <div class="horizontal-line"></div>
   {{- else -}}
     <div class="horizontal-line"></div>
   {{- end -}}
