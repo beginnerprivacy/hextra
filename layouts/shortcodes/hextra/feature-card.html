@@ -43,4 +43,8 @@
   {{- with $image -}}
     <img src="{{ . }}" class="hx-absolute hx-max-w-none {{ $imageClass }}" alt="{{ $title }}" />
   {{- end -}}
+
+  <div style="position: absolute;top: 4px;right: 8px;">
+    <input type="checkbox" id="checkbox-{{ $title | urlize }}" class="hx-checkbox" />  
+  </div>
 </a>
