@@ -32,13 +32,13 @@
     <p class="hx-text-gray-500 dark:hx-text-gray-400 hx-text-sm hx-leading-6">{{ $subtitle | markdownify }}</p>
   </div>
   {{- if eq $displayVertical "true" -}}
-    <div class="vertical-line"></div>
+    <div class="vertical-line hx-bg-black dark:hx-bg-white"></div>
   {{- else if eq $displayVertical "false" -}}
   {{- else if eq $displayVertical "both" -}}
-    <div class="vertical-line"></div>
-    <div class="horizontal-line"></div>
+    <div class="vertical-line hx-bg-black dark:hx-bg-white"></div>
+    <div class="horizontal-line hx-bg-black dark:hx-bg-white"></div>
   {{- else -}}
-    <div class="horizontal-line"></div>
+    <div class="horizontal-line hx-bg-black dark:hx-bg-white"></div>
   {{- end -}}
   {{- with $image -}}
     <img src="{{ . }}" class="hx-absolute hx-max-w-none {{ $imageClass }}" alt="{{ $title }}" />
