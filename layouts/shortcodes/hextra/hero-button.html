@@ -2,6 +2,7 @@
 {{- $text := .Get "text" -}}
 {{- $style := .Get "style" -}}
 {{- $onClick := .Get "onClick" -}}
+{{- $icon := .Get "icon" -}}
 
 {{- $external := hasPrefix $link "http" -}}
 {{- $href := cond (hasPrefix $link "/") ($link | relURL) $link -}}
@@ -13,5 +14,8 @@
   {{ if $external }}target="_blank" rel="noreferrer"{{ end -}}
   {{ if $onClick }}onclick="takeQuiz();"{{ end }}
 >
+  {{- if $icon -}}
+    {{ partial "utils/icon.html" (dict "name" $icon "attributes" "height=20") }}
+  {{ end }}
   {{- $text -}}
 </a>
