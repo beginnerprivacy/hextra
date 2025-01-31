@@ -16,7 +16,7 @@
 {{- end -}}
 
 <a
-  {{ with $link }}href="{{ $href }}" {{ with $external }} target="_blank" rel="noreferrer"{{ end }}{{ end }}
+  {{ with $link }}href="{{ $href }}" target="_blank" rel="noreferrer"{{ end }}
   {{ with $style }}style="{{ . | safeCSS }} height: 100px;"{{ end }}
   {{- if eq $invisibleFiller "true" -}}
     class="invisible-filler"
