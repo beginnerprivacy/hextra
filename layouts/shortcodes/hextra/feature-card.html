@@ -1,19 +1,11 @@
 {{- $title := .Get "title" -}}
-{{- $subtitle := .Get "subtitle" -}}
 {{- $class := .Get "class" -}}
-{{- $image := .Get "image" -}}
-{{- $imageClass := .Get "imageClass" -}}
 {{- $style := .Get "style" -}}
-{{- $icon := .Get "icon" -}}
 {{- $link := .Get "link" -}}
 {{- $invisibleFiller := .Get "invisibleFiller" -}}
 
 {{- $external := hasPrefix $link "http" -}}
 {{- $href := cond (strings.HasPrefix $link "/") ($link | relURL) $link -}}
-
-{{- if hasPrefix $image "/" -}}
-  {{- $image = relURL (strings.TrimPrefix "/" $image) -}}
-{{- end -}}
 
 <a
   {{ with $link }}href="{{ $href }}" target="_blank" rel="noreferrer"{{ end }}
@@ -26,19 +18,9 @@
 >
   <div class="hx-relative hx-w-full hx-flex hx-flex-col hx-justify-center hx-items-center" style="height: 100%;">
     <h3 class="hx-text-2xl hx-font-medium hx-leading-6 hx-flex hx-items-center hx-text-center">
-      {{ with $icon -}}
-        <span class="hx-pr-2">
-          {{- partial "utils/icon.html" (dict "name" . "attributes" "height=1.5rem") -}}
-        </span>
-      {{ end -}}
       <span>{{ $title }}</span>
     </h3>
-    <p class="hx-text-gray-500 dark:hx-text-gray-400 hx-text-sm hx-leading-6">{{ $subtitle | markdownify }}</p>
   </div>
-
-  {{- with $image -}}
-    <img src="{{ . }}" class="hx-absolute hx-max-w-none {{ $imageClass }}" alt="{{ $title }}" />
-  {{- end -}}
 
   <div style="position: absolute;top: 4px;right: 8px;">
     <input type="checkbox" id="checkbox-{{ $title | urlize }}" class="hx-checkbox" />  
