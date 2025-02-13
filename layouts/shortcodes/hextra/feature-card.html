@@ -17,6 +17,7 @@
   {{- end -}}
 >
   <div class="hx-relative hx-w-full hx-flex hx-flex-col hx-justify-center hx-items-center" style="height: 100%;">
+    {{ if (and (not $link) (not $invisibleFiller)) }}<div class="coming-soon-label">Coming Soon</div>{{ end }}
     <h3 class="hx-text-2xl hx-font-medium hx-leading-6 hx-flex hx-items-center hx-text-center">
       <span>{{ $title }}</span>
     </h3>
