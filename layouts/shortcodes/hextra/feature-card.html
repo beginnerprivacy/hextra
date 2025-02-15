@@ -23,7 +23,9 @@
     </h3>
   </div>
 
-  <div style="position: absolute;top: 4px;right: 8px;">
-    <input type="checkbox" id="checkbox-{{ $title | urlize }}" class="hx-checkbox" />  
-  </div>
+  {{ if not $invisibleFiller }}
+    <div style="position: absolute;top: 4px;right: 8px;">
+      <input type="checkbox" id="checkbox-{{ replace (lower $title) ` ` `-` }}" class="hx-checkbox" />  
+    </div>
+  {{ end }}
 </a>
