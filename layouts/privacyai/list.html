@@ -5,7 +5,7 @@
         <div class="content">
           <div style="text-align: center;">
             {{ if .Title }}<h1>{{ .Title }}</h1>{{ end }}
-            <p style="margin-bottom: 20px; margin-top: 0;">your privacy adviser</p>
+            <p style="margin-bottom: 20px; margin-top: 0;">{{ if strings.Contains .Permalink "es" }}tu asesor de privacidad{{ else if strings.Contains .Permalink "zh-cn" }}你的隐私顾问{{ else }}your privacy adviser{{ end }}</p>
           </div>
           {{ .Content }}
         </div>
