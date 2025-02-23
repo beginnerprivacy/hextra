@@ -4,16 +4,87 @@
 {{- $link := .Get "link" -}}
 {{- $invisibleFiller := .Get "invisibleFiller" -}}
 
-{{- $external := hasPrefix $link "http" -}}
-{{- $href := cond (strings.HasPrefix $link "/") ($link | relURL) $link -}}
+{{- $modalID := printf "%s" ($title | urlize) -}}
+{{- $pageContent := "" -}}
+{{- $pageTitle := "" -}}
+{{- $date := "" -}}
+{{- $authors := slice -}}
+
+{{- if $link -}}
+  {{- with $.Site.GetPage $link -}}
+    {{- $pageTitle = .Title -}}
+    {{- $pageContent = .Content -}}
+    {{- $date = .Date -}}
+    {{- $authors = .Params.authors -}}
+  {{- end -}}
+{{- end -}}
+
+<div id="{{ $modalID }}" class="roadmap-modal">
+  <div class="roadmap-modal-content">
+    <article class="hx-w-full hx-break-words hx-flex hx-min-h-[calc(100vh-var(--navbar-height))] hx-min-w-0 hx-justify-center hx-pb-8 hx-pr-[calc(env(safe-area-inset-right)-1.5rem)]">
+      <main class="hx-w-full hx-min-w-0 hx-max-w-6xl hx-px-6 hx-pt-4 md:hx-px-12">
+        <a class="roadmap-modal-close">&times;</a>
+        {{ if $pageTitle }}<a href="{{ $link }}" target="_blank"><h1 class="hx-mt-2 hx-text-4xl hx-font-bold hx-tracking-tight hx-text-slate-900 dark:hx-text-slate-100" style="display: inline;">{{ $pageTitle }}</h1><svg class="hx-w-5 hx-h-5" style="display: inline; margin: 0 0 0.35rem 0.4rem;" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" /></svg></a>{{ end }}
+        
+        {{ if or $date $authors }}
+        <div class="hx-mt-4 hx-mb-16 hx-text-gray-500 hx-text-sm hx-flex hx-items-center hx-flex-wrap hx-gap-y-2">
+          {{- with $date }}<span class="hx-mr-1">{{ partial "utils/format-date" . }}</span>{{ end -}}
+          {{- $lazyLoading := site.Params.enableImageLazyLoading | default true -}}
+          {{ if and $date $authors }}<span class="hx-mx-1">·</span>{{ end -}}
+          {{- with $authors -}}
+            {{- range $i, $author := . -}}
+              {{- if reflect.IsMap $author -}}
+                {{- if and $i (not $author.image) }}<span class="hx-mr-1">,</span>{{ end -}}
+                <a
+                  {{ with $author.link }}href="{{ . }}" target="_blank"{{ end }}
+                  class="hx-group hx-inline-flex hx-items-center hx-text-current hx-gap-x-1.5 hx-mx-1"
+                  {{ with $author.name }}title="{{ . }}"{{ end }}
+                >
+                  {{- with $image := $author.image }}
+                    {{- $isLocal := not (urls.Parse $image).Scheme -}}
+                    {{- $startsWithSlash := hasPrefix $image "/" -}}
+                    {{- if and $isLocal $startsWithSlash }}
+                      {{- $image = (relURL (strings.TrimPrefix "/" $image)) -}}
+                    {{ end -}}
+                    <img src="{{ $image | safeURL }}" alt="{{ $author.name }}" class="hx-inline-block hx-h-4 hx-w-4 hx-rounded-full" {{ if $lazyLoading }}loading="lazy"{{ end }} />
+                  {{ end -}}
+                  <div class="group-hover:hx-underline">{{ $author.name }}</div>
+                </a>
+              {{- else -}}
+                {{- if $i }}<span class="hx-mr-1">,</span>{{ end -}}<span class="hx-mx-1">{{ $author }}</span>
+              {{- end -}}
+            {{- end -}}
+          {{- end -}}
+        </div>
+        {{ end }}
+
+        {{- if $pageContent -}}
+          <div class="content">
+            {{ $pageContent | safeHTML }}
+          </div>
+        {{ else }}
+          <p>Content coming soon!</p>
+        {{ end }}
+        <hr class="hx-my-8 hx-mt-12 hx-border-t hx-border-gray-200 dark:hx-border-gray-800">
+        <div class="hx-flex hx-items-center hx-gap-x-3 hx-mt-4">
+          <button id="mark-done-{{ $modalID }}" class="mark-done-button not-prose hx-font-medium hx-cursor-pointer hx-px-6 hx-py-3 hx-rounded-full hx-text-center hx-text-white hx-inline-block hx-bg-primary-600 hover:hx-bg-primary-700 dark:hx-bg-primary-600 dark:hover:hx-bg-primary-700 hx-transition-all hx-ease-in hx-duration-200" onclick="markAsDone('{{ $modalID }}')">Mark as done</button>
+          <svg id="status-icon-{{ $modalID }}" class="hx-w-6 hx-h-6 hx-text-gray-400" style="width: 50px;height: 50px;" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path id="todo-icon-{{ $modalID }}" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+            <path id="done-icon-{{ $modalID }}" class="hx-hidden" style="color: #008d0c;" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+        </div>
+      </main>
+    </article>
+  </div>
+</div>
 
 <a
-  {{ with $link }}href="{{ $href }}" target="_blank" rel="noreferrer"{{ end }}
+  {{ with $link }}href="?m={{ $modalID }}" rel="noreferrer"{{ end }}
   {{ with $style }}style="{{ . | safeCSS }} height: 100px;"{{ end }}
   {{- if eq $invisibleFiller "true" -}}
     class="invisible-filler"
   {{- else -}}
-    class="{{ $class }} hextra-feature-card not-prose hx-block hx-relative hx-overflow-hidden hx-rounded-3xl hx-border hx-border-gray-200 hover:hx-border-gray-300 dark:hx-border-neutral-800 dark:hover:hx-border-neutral-700 before:hx-pointer-events-none before:hx-absolute before:hx-inset-0 before:hx-bg-glass-gradient"
+    class="{{ $class }} hextra-feature-card hx-block hx-relative hx-overflow-hidden hx-rounded-3xl hx-border hx-border-gray-200 hover:hx-border-gray-300 dark:hx-border-neutral-800 dark:hover:hx-border-neutral-700 before:hx-pointer-events-none before:hx-absolute before:hx-inset-0 before:hx-bg-glass-gradient"
   {{- end -}}
 >
   <div class="hx-relative hx-w-full hx-flex hx-flex-col hx-justify-center hx-items-center" style="height: 100%;">
@@ -25,7 +96,7 @@
 
   {{ if not $invisibleFiller }}
     <div style="position: absolute;top: 4px;right: 8px;">
-      <input class="hx-checkbox" type="checkbox" id="checkbox-{{ replace (lower $title) ` ` `-` }}" aria-label="Checkbox for {{ $title }}" />  
+      <input class="hx-checkbox" type="checkbox" id="checkbox-{{ $modalID }}" aria-label="Checkbox for {{ $title }}" />  
     </div>
   {{ end }}
 </a>
