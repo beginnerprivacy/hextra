@@ -3,6 +3,7 @@
 {{- $style := .Get "style" -}}
 {{- $link := .Get "link" -}}
 {{- $invisibleFiller := .Get "invisibleFiller" -}}
+{{- $contributeCard := .Get "contributeCard" -}}
 
 {{- $modalID := printf "%s" ($title | urlize) -}}
 {{- $pageContent := "" -}}
@@ -69,8 +70,8 @@
         <div class="hx-flex hx-items-center hx-gap-x-3 hx-mt-4">
           <button id="mark-done-{{ $modalID }}" class="mark-done-button not-prose hx-font-medium hx-cursor-pointer hx-px-6 hx-py-3 hx-rounded-full hx-text-center hx-text-white hx-inline-block hx-bg-primary-600 hover:hx-bg-primary-700 dark:hx-bg-primary-600 dark:hover:hx-bg-primary-700 hx-transition-all hx-ease-in hx-duration-200" onclick="markAsDone('{{ $modalID }}')">Mark as done</button>
           <svg id="status-icon-{{ $modalID }}" class="hx-w-6 hx-h-6 hx-text-gray-400" style="width: 50px;height: 50px;" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path id="todo-icon-{{ $modalID }}" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-            <path id="done-icon-{{ $modalID }}" class="hx-hidden" style="color: #008d0c;" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+            <path id="todo-icon-{{ $modalID }}" stroke-width="2"  d="M12 3a9 9 0 1 1 0 18 9 9 0 0 1 0-18zm-4.5 4.5l9 9m0-9l-9 9" />
+            <path id="done-icon-{{ $modalID }}" class="hx-hidden" style="color: #008d0c;" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
           </svg>
         </div>
       </main>
@@ -79,7 +80,7 @@
 </div>
 
 <a
-  {{ with $link }}href="?m={{ $modalID }}" rel="noreferrer"{{ end }}
+  {{ if $contributeCard }}href="{{ $link }}" target="_blank" {{ else }}href="?m={{ $modalID }}" rel="noreferrer"{{ end }}
   {{ with $style }}style="{{ . | safeCSS }} height: 100px;"{{ end }}
   {{- if eq $invisibleFiller "true" -}}
     class="invisible-filler"
@@ -94,7 +95,7 @@
     </h3>
   </div>
 
-  {{ if not $invisibleFiller }}
+  {{ if (and (not $invisibleFiller) (not $contributeCard)) }}
     <div style="position: absolute;top: 4px;right: 8px;">
       <input class="hx-checkbox" type="checkbox" id="checkbox-{{ $modalID }}" aria-label="Checkbox for {{ $title }}" />  
     </div>
