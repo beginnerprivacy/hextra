@@ -80,7 +80,7 @@
 </div>
 
 <a
-  {{ if $contributeCard }}href="{{ $link }}" target="_blank" {{ else }}href="?m={{ $modalID }}" rel="noreferrer"{{ end }}
+  {{ if $contributeCard }}href="{{ $link }}" target="_blank" {{ else if (not $invisibleFiller) }}href="?m={{ $modalID }}" rel="noreferrer"{{ end }}
   {{ with $style }}style="{{ . | safeCSS }} height: 100px;"{{ end }}
   {{- if eq $invisibleFiller "true" -}}
     class="invisible-filler"
