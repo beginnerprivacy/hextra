@@ -445,6 +445,8 @@ function markAsDone(id) {
   if (!checkbox) return;
   checkbox.checked = !checkbox.checked;
   updateStatus(checkbox);
+  
+  localStorage.setItem(`checkbox-${id}`, checkbox.checked);
 }
 
 function updateStatus(checkbox) {
@@ -466,12 +468,18 @@ function updateStatus(checkbox) {
 document.querySelectorAll('.hx-checkbox').forEach(checkbox => {
   checkbox.addEventListener('change', function() {
     updateStatus(this);
+    localStorage.setItem(this.id, this.checked);
   });
 });
 
 document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('.hx-checkbox').forEach(checkbox => {
-    updateStatus(checkbox);
+    const id = checkbox.id;
+    const savedState = localStorage.getItem(id);
+    if (savedState === 'true') {
+      checkbox.checked = true;
+      updateStatus(checkbox);
+    }
   });
   handleModalParam();
 });
@@ -562,28 +570,24 @@ function previousRoadmapModal() {
   const modals = document.querySelectorAll('.roadmap-modal');
   let currentIndex = -1;
 
-  // Find the index of the current modal
   modals.forEach((modal, index) => {
     if (modal.id === currentModalID) {
       currentIndex = index;
     }
   });
 
-  // Iterate backwards to find the previous valid modal
   while (currentIndex > 0) {
     const previousModal = modals[currentIndex - 1];
     const previousModalID = previousModal.id;
 
-    // Check if the previous modal ID is the one to skip
     if (previousModalID !== 'something-missing-contribute') {
-      // Update the URL and show the previous modal
       const url = new URL(window.location);
       url.searchParams.set('m', previousModalID);
       window.history.pushState({}, '', url);
       handleModalParam();
-      break; // Exit the loop after showing the valid modal
+      break;
     }
-    currentIndex--; // Move to the next previous modal
+    currentIndex--;
   }
 }
 
@@ -593,28 +597,24 @@ function nextRoadmapModal() {
   const modals = document.querySelectorAll('.roadmap-modal');
   let currentIndex = -1;
 
-  // Find the index of the current modal
   modals.forEach((modal, index) => {
     if (modal.id === currentModalID) {
       currentIndex = index;
     }
   });
 
-  // Iterate forwards to find the next valid modal
   while (currentIndex < modals.length - 1) {
     const nextModal = modals[currentIndex + 1];
     const nextModalID = nextModal.id;
 
-    // Check if the next modal ID is the one to skip
     if (nextModalID !== 'something-missing-contribute') {
-      // Update the URL and show the next modal
       const url = new URL(window.location);
       url.searchParams.set('m', nextModalID);
       window.history.pushState({}, '', url);
       handleModalParam();
-      break; // Exit the loop after showing the valid modal
+      break;
     }
-    currentIndex++; // Move to the next modal
+    currentIndex++;
   }
 }
 
