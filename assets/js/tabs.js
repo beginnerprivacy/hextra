@@ -556,6 +556,68 @@ document.querySelectorAll('.hx-checkbox').forEach(checkbox => {
 window.addEventListener('popstate', handleModalParam);
 document.addEventListener('DOMContentLoaded', handleModalParam);
 
+function previousRoadmapModal() {
+  const params = new URLSearchParams(window.location.search);
+  const currentModalID = params.get('m');
+  const modals = document.querySelectorAll('.roadmap-modal');
+  let currentIndex = -1;
+
+  // Find the index of the current modal
+  modals.forEach((modal, index) => {
+    if (modal.id === currentModalID) {
+      currentIndex = index;
+    }
+  });
+
+  // Iterate backwards to find the previous valid modal
+  while (currentIndex > 0) {
+    const previousModal = modals[currentIndex - 1];
+    const previousModalID = previousModal.id;
+
+    // Check if the previous modal ID is the one to skip
+    if (previousModalID !== 'something-missing-contribute') {
+      // Update the URL and show the previous modal
+      const url = new URL(window.location);
+      url.searchParams.set('m', previousModalID);
+      window.history.pushState({}, '', url);
+      handleModalParam();
+      break; // Exit the loop after showing the valid modal
+    }
+    currentIndex--; // Move to the next previous modal
+  }
+}
+
+function nextRoadmapModal() {
+  const params = new URLSearchParams(window.location.search);
+  const currentModalID = params.get('m');
+  const modals = document.querySelectorAll('.roadmap-modal');
+  let currentIndex = -1;
+
+  // Find the index of the current modal
+  modals.forEach((modal, index) => {
+    if (modal.id === currentModalID) {
+      currentIndex = index;
+    }
+  });
+
+  // Iterate forwards to find the next valid modal
+  while (currentIndex < modals.length - 1) {
+    const nextModal = modals[currentIndex + 1];
+    const nextModalID = nextModal.id;
+
+    // Check if the next modal ID is the one to skip
+    if (nextModalID !== 'something-missing-contribute') {
+      // Update the URL and show the next modal
+      const url = new URL(window.location);
+      url.searchParams.set('m', nextModalID);
+      window.history.pushState({}, '', url);
+      handleModalParam();
+      break; // Exit the loop after showing the valid modal
+    }
+    currentIndex++; // Move to the next modal
+  }
+}
+
 document.addEventListener("DOMContentLoaded", function() {
   const grids = [
       document.querySelector('#basicContent .hextra-feature-grid'),
