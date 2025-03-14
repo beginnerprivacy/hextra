@@ -6,8 +6,12 @@
 {{- $jsFileTree := resources.Get "js/filetree.js" -}}
 {{- $jsSidebar := resources.Get "js/sidebar.js" -}}
 {{- $jsBackToTop := resources.Get "js/back-to-top.js" -}}
+{{- $jsRoadmap := resources.Get "js/roadmap.js" -}}
+{{- $jsTourGuide := resources.Get "js/tour-guide.js" -}}
+{{- $jsQuiz := resources.Get "js/quiz.js" -}}
+{{- $jsMisc := resources.Get "js/misc.js" -}}
 
-{{- $scripts := slice $jsTheme $jsMenu $jsCodeCopy $jsTabs $jsLang $jsFileTree $jsSidebar $jsBackToTop | resources.Concat "js/main.js" -}}
+{{- $scripts := slice $jsTheme $jsMenu $jsCodeCopy $jsTabs $jsLang $jsFileTree $jsSidebar $jsBackToTop $jsTourGuide $jsQuiz $jsMisc $jsRoadmap | resources.Concat "js/main.js" -}}
 {{- if hugo.IsProduction -}}
   {{- $scripts = $scripts | minify | fingerprint -}}
 {{- end -}}
