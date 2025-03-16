@@ -67,7 +67,7 @@
           <p>Content coming soon!</p>
         {{ end }}
         <hr class="hx-my-8 hx-mt-12 hx-border-t hx-border-gray-200 dark:hx-border-gray-800">
-        <div class="hx-flex hx-items-center hx-gap-x-3 hx-mt-4">
+        <div id="roadmap-modal-mark" class="hx-flex hx-items-center hx-gap-x-3 hx-mt-4">
           <button id="mark-done-{{ $modalID }}" class="mark-done-button not-prose hx-font-medium hx-cursor-pointer hx-px-6 hx-py-3 hx-rounded-full hx-text-center hx-text-white hx-inline-block hx-bg-primary-600 hover:hx-bg-primary-700 dark:hx-bg-primary-600 dark:hover:hx-bg-primary-700 hx-transition-all hx-ease-in hx-duration-200" onclick="markAsDone('{{ $modalID }}')">Mark as done</button>
           <svg id="status-icon-{{ $modalID }}" class="hx-w-6 hx-h-6 hx-text-gray-400" style="width: 50px;height: 50px;" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path id="todo-icon-{{ $modalID }}" stroke-width="2"  d="M12 3a9 9 0 1 1 0 18 9 9 0 0 1 0-18zm-4.5 4.5l9 9m0-9l-9 9" />
@@ -101,7 +101,7 @@
 
   {{ if (and (not $invisibleFiller) (not $contributeCard)) }}
     <div style="position: absolute;top: 4px;right: 8px;">
-      <input class="hx-checkbox" type="checkbox" id="checkbox-{{ $modalID }}" aria-label="Checkbox for {{ $title }}" />  
+      <input class="hx-checkbox" type="checkbox" id="checkbox-{{ $modalID }}" aria-label="Checkbox for {{ $title }}" disabled />  
     </div>
   {{ end }}
 </a>
