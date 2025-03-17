@@ -164,8 +164,17 @@ function showTourModal() {
       document.body.style.overflow = 'hidden';
       
       if (currentStep === 3) {
-        element.style.backgroundColor = 'white';
+        if (document.documentElement.classList.contains('dark')) {
+          element.style.backgroundColor = 'black';
+        }
+        else {
+          element.style.backgroundColor = 'white';
+        }
         element.style.borderRadius = '1.5rem';
+        thirdElement = element;
+      }
+      if (currentStep === 4) {
+        thirdElement.style.backgroundColor = '';
       }
 
       container.style.left = `${rect.left + window.scrollX}px`;

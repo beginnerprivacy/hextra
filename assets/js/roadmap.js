@@ -92,14 +92,7 @@ function updateRoadmap() {
     todoIcon.classList.toggle('hx-hidden', isChecked);
     doneIcon.classList.toggle('hx-hidden', !isChecked);
   }
-  
-  document.querySelectorAll('.hx-checkbox').forEach(checkbox => {
-    checkbox.addEventListener('change', function() {
-      updateStatus(this);
-      localStorage.setItem(this.id, this.checked);
-    });
-  });
-  
+    
   document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('.hx-checkbox').forEach(checkbox => {
       const id = checkbox.id;
