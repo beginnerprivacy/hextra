@@ -23,8 +23,16 @@
     <div class="footer-content hx-flex hx-justify-between hx-items-center hx-py-4">
       <!-- Left Section -->
       <div class="left-footer-section hx-text-sm" style="flex: 0 0 33.33%;">
-        <p>{{- range .Site.Menus.footer -}}<span class="hx-text-center">{{ or (T .Identifier) .Name | safeHTML }}</span>{{- end -}}</p>
-        <p><a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener noreferrer">CC BY-SA 4.0</a> Beginner Privacy & Contributors</p>
+        {{- if or (strings.Contains .Page.Permalink "/es/") (eq .Lang "es") -}}
+          <p>{{- range .Site.Menus.footer -}}<span class="hx-text-center">{{ or (T .Identifier) .Name | safeHTML }}</span>{{- end -}}</p>
+          <p><a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener noreferrer">CC BY-SA 4.0</a> Beginner Privacy y colaboradores. <strong><a href="/es/about/privacy-policy">Aviso de privacidad.</a></strong></p>
+        {{- else if or (strings.Contains .Page.Permalink "/zh-cn/") (eq .Lang "zh-cn") -}}
+          <p>{{- range .Site.Menus.footer -}}<span class="hx-text-center">{{ or (T .Identifier) .Name | safeHTML }}</span>{{- end -}}</p>
+          <p><a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener noreferrer">CC BY-SA 4.0</a> Beginner Privacy 和贡献者。 <strong><a href="/zh-cn/about/privacy-policy">隐私声明。</a></strong></p>
+        {{- else -}}
+          <p>{{- range .Site.Menus.footer -}}<span class="hx-text-center">{{ or (T .Identifier) .Name | safeHTML }}</span>{{- end -}}</p>
+          <p><a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener noreferrer">CC BY-SA 4.0</a> Beginner Privacy & contributors. <strong><a href="/about/privacy-policy">Privacy notice.</a></strong></p>
+        {{- end -}}
       </div>
       <!-- Middle Section -->
       <div class="middle-footer-section hx-flex hx-justify-center hx-items-center" style="flex: 0 0 33.33%;">
