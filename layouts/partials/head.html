@@ -9,7 +9,13 @@
   {{ partialCached "favicons.html" . -}}
   <title>
     {{- if .IsHome -}}
-      {{ .Site.Title -}}
+      {{- if or (strings.Contains .Page.Permalink "/es/") (eq .Lang "es") -}}
+        {{ .Site.Title -}}&nbsp;– Privacidad Hecha Fácil
+      {{- else if or (strings.Contains .Page.Permalink "/zh-cn/") (eq .Lang "zh-cn") -}}
+        {{ .Site.Title -}}&nbsp;– 隐私变得简单
+      {{- else -}}
+        {{ .Site.Title -}}&nbsp;– Privacy Made Easy
+      {{- end -}}
     {{ else -}}
       {{ with .Title }}{{ . }} – {{ end -}}
       {{ .Site.Title -}}
