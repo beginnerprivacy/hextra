@@ -69,7 +69,7 @@
   {{- end -}}
 
   {{- $context := .context -}}
-  {{- $page := .page }}
+  {{- $page := .page -}}
   {{- $pageURL := .page.RelPermalink -}}
   {{- $level := .level -}}
   {{- $toc := .toc | default false -}}
@@ -77,6 +77,45 @@
   {{- with $items := union .context.RegularPages .context.Sections -}}
     {{- $items = where $items "Params.sidebar.exclude" "!=" true -}}
     {{- if eq $level 0 -}}
+      {{- $aboutItems := where $items ".Params.category" "eq" "About" -}}
+      {{- if $aboutItems -}}
+        {{- range $category := slice "About" "Community" "Policies" "Contributing" -}}
+          {{- $itemsInCategory := where $items ".Params.category" "eq" $category -}}
+          {{- if $itemsInCategory -}}
+            <li class="[word-break:break-word] hx-mt-5 hx-px-2 hx-py-1.5 hx-text-sm hx-font-semibold hx-text-gray-900 first:hx-mt-0 dark:hx-text-gray-100">
+              <span class="hx-cursor-default">
+                {{- if or (strings.Contains $page.Permalink "/es/") (eq $page.Lang "es") -}}
+                  {{- if eq $category "About" }}Acerca de
+                  {{- else if eq $category "Community" }}Comunidad
+                  {{- else if eq $category "Policies" }}Políticas
+                  {{- else if eq $category "Contributing" }}Contribuciones
+                  {{- end -}}
+                {{- else if or (strings.Contains $page.Permalink "/zh-cn/") (eq $page.Lang "zh-cn") -}}
+                  {{- if eq $category "About" }}关于
+                  {{- else if eq $category "Community" }}社区
+                  {{- else if eq $category "Policies" }}政策
+                  {{- else if eq $category "Contributing" }}贡献
+                  {{- end -}}
+                {{- else -}}
+                  {{- $category -}}
+                {{- end -}}
+              </span>
+            </li>
+            {{- range $itemsInCategory.ByWeight -}}
+              {{- $active := eq $pageURL .RelPermalink -}}
+              {{- $shouldOpen := or (.Params.sidebar.open) (.IsAncestor $page) $active | default true }}
+              <li class="{{ if $shouldOpen }}open{{ end }}">
+                {{- $linkTitle := partial "utils/title" . -}}
+                {{- template "sidebar-item-link" dict "context" . "active" $active "title" $linkTitle "link" .RelPermalink -}}
+                {{- if and $toc $active -}}
+                  {{- template "sidebar-toc" dict "page" . -}}
+                {{- end -}}
+                {{- template "sidebar-tree" dict "context" . "page" $page "pageURL" $pageURL "level" (add $level 1) "toc" $toc -}}
+              </li>
+            {{- end -}}
+          {{- end -}}
+        {{- end -}}
+    {{- else -}}
       {{- range $items.ByWeight }}
         {{- if .Params.sidebar.separator -}}
           <li class="[word-break:break-word] hx-mt-5 hx-mb-2 hx-px-2 hx-py-1.5 hx-text-sm hx-font-semibold hx-text-gray-900 first:hx-mt-0 dark:hx-text-gray-100">
@@ -95,6 +134,7 @@
           </li>
         {{- end -}}
       {{- end -}}
+    {{- end -}}
     {{- else -}}
       <div class="ltr:hx-pr-0 hx-overflow-hidden">
         <ul class='hx-relative hx-flex hx-flex-col hx-gap-1 before:hx-absolute before:hx-inset-y-1 before:hx-w-px before:hx-bg-gray-200 before:hx-content-[""] ltr:hx-ml-3 ltr:hx-pl-3 ltr:before:hx-left-0 rtl:hx-mr-3 rtl:hx-pr-3 rtl:before:hx-right-0 dark:before:hx-bg-neutral-800'>
