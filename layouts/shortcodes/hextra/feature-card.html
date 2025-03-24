@@ -75,8 +75,16 @@
           </svg>
         </div>
         <div style="display: flex; justify-content: space-between; width: 95%; margin-top: 10px;">
-          <button style="font-size: 1.5rem;" onclick="previousRoadmapModal()">< Previous</button>
-          <button style="font-size: 1.5rem;" onclick="nextRoadmapModal()">Next ></button>
+          {{- if (strings.Contains .Page.Permalink "/es/") -}}
+            <button style="font-size: 1.5rem;" onclick="previousRoadmapModal()">< Anterior</button>
+            <button style="font-size: 1.5rem;" onclick="nextRoadmapModal()">Siguiente ></button>
+          {{- else if (strings.Contains .Page.Permalink "/zh-cn/") -}}
+            <button style="font-size: 1.5rem;" onclick="previousRoadmapModal()">< 以前</button>
+            <button style="font-size: 1.5rem;" onclick="nextRoadmapModal()">下一个 ></button>
+          {{- else -}}
+            <button style="font-size: 1.5rem;" onclick="previousRoadmapModal()">< Previous</button>
+            <button style="font-size: 1.5rem;" onclick="nextRoadmapModal()">Next ></button>
+          {{- end -}}
         </div>
       </main>
     </article>
