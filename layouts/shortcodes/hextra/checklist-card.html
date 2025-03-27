@@ -1,0 +1,66 @@
+{{- $title := .Get "title" -}}
+{{- $style := .Get "style" -}}
+{{- $modalID := .Get "modalID" -}}
+{{- $content := .Get "content" -}}
+{{- $checklist := .Get "checklist" -}}
+{{- $image := .Get "image" -}}
+
+<div id="{{ $modalID }}" class="checklist-modal">
+  <div class="checklist-modal-content">
+    <article class="hx-w-full hx-break-words hx-flex hx-min-h-[calc(100vh-var(--navbar-height))] hx-min-w-0 hx-justify-center hx-pb-8 hx-pr-[calc(env(safe-area-inset-right)-1.5rem)]">
+      <main class="hx-w-full hx-min-w-0 hx-max-w-6xl hx-px-6 hx-pt-4 md:hx-px-12">
+        <a class="roadmap-modal-close">&times;</a>
+        {{ if $title }}<h1 class="hx-mt-2 hx-text-4xl hx-font-bold hx-tracking-tight hx-text-slate-900 dark:hx-text-slate-100" style="display: inline;">{{ $title }}</h1>{{ end }}
+
+        {{- if $content -}}
+          <div class="content">
+            {{ $content | safeHTML }}
+          </div>
+        {{ end }}
+
+        {{ if $checklist }}
+            <div class="checklist-items">
+            <h3>Checklist Items:</h3>
+            <ul>
+                {{ range $item := split $checklist ", " }}
+                <li>{{ $item }}</li>
+                {{ end }}
+            </ul>
+            </div>
+        {{ end }}
+      </main>
+    </article>
+  </div>
+</div>
+
+<a
+  {{ if $modalID }}href="?m={{ $modalID }}" rel="noreferrer"{{ end }}
+  {{ with $style }}style="{{ . | safeCSS }} height: 100px;"{{ end }}
+  class="checklist-card hx-block hx-relative hx-overflow-hidden hx-rounded-3xl hx-border hx-border-gray-200 hover:hx-border-gray-300 dark:hx-border-neutral-800 dark:hover:hx-border-neutral-700 before:hx-pointer-events-none before:hx-absolute before:hx-inset-0 before:hx-bg-glass-gradient"
+>
+  <div class="hx-relative hx-w-full hx-flex hx-flex-col hx-justify-center hx-items-center" style="height: 100%;">
+    <h3 class="hx-flex hx-items-center hx-text-center">
+      <span>{{ $title }}</span>
+    </h3>
+    {{ if $image }}
+        <img src="{{ $image }}" style="width: 200px; height: 160px; background: white;">
+    {{ end }}
+    <br><br>
+    {{ if $checklist }}
+        <div class="checklist-items">
+            <ul>
+                {{ $items := split $checklist ", " }}
+                {{ $count := 0 }}
+                {{ range $item := $items }}
+                    {{ if lt $count 3 }}
+                        <li>{{ $item }}</li>
+                        {{ $count = add $count 1 }}
+                    {{ end }}
+                {{ end }}
+            </ul>
+        </div>
+    {{ else }}
+        <div class="checklist-coming-soon-label">{{ if (strings.Contains .Page.Permalink "/es/") }}Lista de Verificación Próximamente{{ else if (strings.Contains .Page.Permalink "/zh-cn/") }}即将推出的清单{{ else }}Checklist Coming Soon{{ end }}</div>
+    {{ end }}
+  </div>
+</a>

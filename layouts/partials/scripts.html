@@ -10,8 +10,9 @@
 {{- $jsTourGuide := resources.Get "js/tour-guide.js" -}}
 {{- $jsQuiz := resources.Get "js/quiz.js" -}}
 {{- $jsMisc := resources.Get "js/misc.js" -}}
+{{- $jsChecklists := resources.Get "js/checklists.js" -}}
 
-{{- $scripts := slice $jsTheme $jsMenu $jsCodeCopy $jsTabs $jsLang $jsFileTree $jsSidebar $jsBackToTop $jsTourGuide $jsQuiz $jsMisc $jsRoadmap | resources.Concat "js/main.js" -}}
+{{- $scripts := slice $jsTheme $jsMenu $jsCodeCopy $jsTabs $jsLang $jsFileTree $jsSidebar $jsBackToTop $jsTourGuide $jsQuiz $jsMisc $jsRoadmap $jsChecklists | resources.Concat "js/main.js" -}}
 {{- if hugo.IsProduction -}}
   {{- $scripts = $scripts | minify | fingerprint -}}
 {{- end -}}
