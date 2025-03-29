@@ -15,8 +15,16 @@
       aria-label="{{ $changeLanguage }}"
     >
       <div class="hx-flex hx-items-center hx-gap-2 hx-capitalize">
-        {{- partial "utils/icon" (dict "name" "globe-alt" "attributes" "height=12") -}}
-        {{- if not $hideLabel }}<span>{{ site.Language.LanguageName }}</span>{{ end -}}
+        <div class="language-switcher-flag-icon">
+          {{- if eq site.Language.LanguageName "🇪🇸 Español" -}}
+          🇪🇸
+          {{- else if eq site.Language.LanguageName "🇨🇳 简体中文" -}}
+          🇨🇳
+          {{- else -}}
+          🇺🇸
+          {{- end -}}
+        </div>
+        {{- if not $hideLabel }}<span class="language-switcher-label">{{ site.Language.LanguageName }}</span>{{ end -}}
       </div>
     </button>
     <ul class="language-options hx-hidden hx-z-20 hx-max-h-64 hx-overflow-auto hx-rounded-md hx-ring-1 hx-ring-black/5 hx-bg-white hx-py-1 hx-text-sm hx-shadow-lg dark:hx-ring-white/20 dark:hx-bg-neutral-800">
