@@ -2,7 +2,6 @@
 {{- $class := .Get "class" -}}
 {{- $style := .Get "style" -}}
 {{- $link := .Get "link" -}}
-{{- $invisibleFiller := .Get "invisibleFiller" -}}
 {{- $contributeCard := .Get "contributeCard" -}}
 
 {{- $modalID := printf "%s" ($title | urlize) -}}
@@ -92,22 +91,18 @@
 </div>
 
 <a
-  {{ if $contributeCard }}href="{{ $link }}" target="_blank" {{ else if (not $invisibleFiller) }}href="?m={{ $modalID }}" rel="noreferrer"{{ end }}
+  {{ if $contributeCard }}href="{{ $link }}" target="_blank" {{ else }}href="?m={{ $modalID }}" rel="noreferrer"{{ end }}
   {{ with $style }}style="{{ . | safeCSS }} height: 100px;"{{ end }}
-  {{- if eq $invisibleFiller "true" -}}
-    class="invisible-filler"
-  {{- else -}}
     class="{{ $class }} hextra-feature-card hx-block hx-relative hx-overflow-hidden hx-rounded-3xl hx-border hx-border-gray-200 hover:hx-border-gray-300 dark:hx-border-neutral-800 dark:hover:hx-border-neutral-700 before:hx-pointer-events-none before:hx-absolute before:hx-inset-0 before:hx-bg-glass-gradient"
-  {{- end -}}
 >
   <div class="hx-relative hx-w-full hx-flex hx-flex-col hx-justify-center hx-items-center" style="height: 100%;">
-    {{ if (and (not $link) (not $invisibleFiller)) }}<div class="coming-soon-label">Coming Soon</div>{{ end }}
+    {{ if (not $link) }}<div class="coming-soon-label">Coming Soon</div>{{ end }}
     <h3 class="hx-text-2xl hx-leading-6 hx-flex hx-items-center hx-text-center">
       <span>{{ $title }}</span>
     </h3>
   </div>
 
-  {{ if (and (not $invisibleFiller) (not $contributeCard)) }}
+  {{ if (not $contributeCard) }}
     <div style="position: absolute;top: 4px;right: 8px;">
       <input class="hx-checkbox" type="checkbox" id="checkbox-{{ $modalID }}" aria-label="Checkbox for {{ $title }}" disabled />  
     </div>
