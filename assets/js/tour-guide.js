@@ -47,11 +47,28 @@ function showTourModal() {
     };
   }
   
-  function scrollDown() {
-    window.scrollBy({
-        top: 400,
-        behavior: 'smooth'
-    });
+  const roadmapId = document.getElementById('roadmap');
+  function scrollDown() {    
+    if (roadmapId) {
+      roadmapId.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+        });
+    }
+    
+    setTimeout(() => {
+        if (localStorage.getItem('doNotAskAgain') !== 'true') {
+            showTourModal();
+        }
+    }, 400);
+  }
+  function scrollUp() {    
+    if (roadmapId) {
+      roadmapId.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+        });
+    }
     
     setTimeout(() => {
         if (localStorage.getItem('doNotAskAgain') !== 'true') {

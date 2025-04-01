@@ -61,7 +61,7 @@ if (carousel) {
         if (!isDragging) return;
         e.preventDefault();
         const x = e.pageX - carousel.offsetLeft;
-        const walk = (x - startX) * 2; // The multiplier controls the scroll speed
+        const walk = (x - startX) * 2;
         carousel.scrollLeft = scrollLeft - walk;
     });
 
@@ -80,7 +80,20 @@ if (carousel) {
         if (!isDragging) return;
         e.preventDefault();
         const x = e.touches[0].pageX - carousel.offsetLeft;
-        const walk = (x - startX) * 2; // The multiplier controls the scroll speed
+        const walk = (x - startX) * 2;
         carousel.scrollLeft = scrollLeft - walk;
     });
 }
+
+// Scroll down to common misconceptions section on homepage
+function scrollMisconceptions() {
+    const commonMisconceptionsId = document.getElementById('common-misconceptions');
+    
+    if (commonMisconceptionsId) {
+        commonMisconceptionsId.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+        });
+    }
+}
+  
