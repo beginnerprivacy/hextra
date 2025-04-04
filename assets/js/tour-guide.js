@@ -62,7 +62,7 @@ function showTourModal() {
         }
     }, 400);
   }
-  function scrollUp() {    
+  function scrollUpMisconceptions() {    
     if (roadmapId) {
       roadmapId.scrollIntoView({
             behavior: 'smooth',

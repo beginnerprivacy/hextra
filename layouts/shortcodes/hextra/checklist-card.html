@@ -2,7 +2,6 @@
 {{- $style := .Get "style" -}}
 {{- $modalID := .Get "modalID" -}}
 {{- $content := .Get "content" -}}
-{{- $checklist := .Get "checklist" -}}
 {{- $image := .Get "image" -}}
 
 <div id="{{ $modalID }}" class="checklist-modal">
@@ -18,14 +17,11 @@
           </div>
         {{ end }}
 
-        {{ if $checklist }}
+        {{ if .Inner }}
             <div class="checklist-items">
-            <h3>Checklist Items:</h3>
-            <ul>
-                {{ range $item := split $checklist ", " }}
-                <li>{{ $item }}</li>
-                {{ end }}
-            </ul>
+              <ul>
+                {{ .Inner }}
+              </ul>
             </div>
         {{ end }}
       </main>
@@ -46,21 +42,9 @@
         <img src="{{ $image }}" style="width: 200px; height: 160px; background: white;">
     {{ end }}
     <br><br>
-    {{ if $checklist }}
-        <div class="checklist-items">
-            <ul>
-                {{ $items := split $checklist ", " }}
-                {{ $count := 0 }}
-                {{ range $item := $items }}
-                    {{ if lt $count 3 }}
-                        <li>{{ $item }}</li>
-                        {{ $count = add $count 1 }}
-                    {{ end }}
-                {{ end }}
-            </ul>
-        </div>
+    {{ if .Inner }}
     {{ else }}
-        <div class="checklist-coming-soon-label">{{ if (strings.Contains .Page.Permalink "/es/") }}Lista de Verificación Próximamente{{ else if (strings.Contains .Page.Permalink "/zh-cn/") }}即将推出的清单{{ else }}Checklist Coming Soon{{ end }}</div>
+        <div class="checklist-coming-soon-label">Checklist Coming Soon</div>
     {{ end }}
   </div>
 </a>
