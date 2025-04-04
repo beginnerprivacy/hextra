@@ -10,11 +10,11 @@
   <title>
     {{- if .IsHome -}}
       {{- if or (strings.Contains .Page.Permalink "/es/") (eq .Lang "es") -}}
-        {{ .Site.Title -}}&nbsp;– Privacidad Hecha Fácil
+        {{ .Site.Title -}}&nbsp;– Recupera el Control de Tu Privacidad
       {{- else if or (strings.Contains .Page.Permalink "/zh-cn/") (eq .Lang "zh-cn") -}}
-        {{ .Site.Title -}}&nbsp;– 隐私变得简单
+        {{ .Site.Title -}}&nbsp;– 掌控你的隐私
       {{- else -}}
-        {{ .Site.Title -}}&nbsp;– Privacy Made Easy
+        {{ .Site.Title -}}&nbsp;– Take Back Control of Your Privacy
       {{- end -}}
     {{ else -}}
       {{ with .Title }}{{ . }} – {{ end -}}
@@ -31,7 +31,6 @@
 
   {{- partial "opengraph.html" . -}}
   {{- template "_internal/schema.html" . -}}
-  {{- template "_internal/twitter_cards.html" . -}}
 
   {{- partialCached "head-css.html" . -}}
 
