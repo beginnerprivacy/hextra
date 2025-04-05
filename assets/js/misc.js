@@ -15,6 +15,15 @@ function toggleShareDropdown () {
       }
   }
 
+const overlay = document.createElement('div');
+overlay.className = 'overlay';
+document.body.appendChild(overlay);
+
+const navOverlay = document.createElement('div');
+navOverlay.className = 'nav-overlay';
+const navContainer = document.querySelector('.nav-container');
+navContainer.appendChild(navOverlay);
+
 // Carousel for checklists on homepage
 let currentIndex = 0;
 

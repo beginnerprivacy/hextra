@@ -32,3 +32,16 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     });
 });
+
+document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('.checklist-checkbox').forEach(checkbox => {
+        const id = checkbox.id;
+        const savedState = localStorage.getItem(id);
+        if (savedState === 'true') {
+            checkbox.checked = true;
+        }
+        checkbox.addEventListener('change', function() {
+            localStorage.setItem(id, checkbox.checked);
+        });
+  });
+});
