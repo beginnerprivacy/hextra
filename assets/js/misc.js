@@ -96,4 +96,14 @@ function scrollMisconceptions() {
         });
     }
 }
-  
+
+
+const roadmapId = document.getElementById('roadmap');
+function scrollDown() {    
+  if (roadmapId) {
+    roadmapId.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start'
+      });
+  }
+} 

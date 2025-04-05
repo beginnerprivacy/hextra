@@ -14,7 +14,6 @@
   {{ with $style }}style="{{ . | safeCSS }}"{{ end }}
   {{ if $external }}target="_blank" rel="noreferrer"{{ end -}}
   {{ if eq $onclick "scrollDown();" }}onclick="scrollDown();"
-  {{ else if eq $onclick "scrollUpMisconceptions();" }}onclick="scrollUpMisconceptions();"
   {{ else if eq $onclick "scrollMisconceptions();" }}onclick="scrollMisconceptions();"
   {{ else }}onclick="toggleShareDropdown();"{{ end }}
 >
