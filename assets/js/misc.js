@@ -10,8 +10,10 @@ function toggleShareDropdown() {
 document.addEventListener('click', function (e) {
     const dropdown = document.getElementById("shareDropdown");
     const dropdownButton = document.querySelector(".shareDropdownButton");
-    if (dropdown.style.display === "block" && !dropdown.contains(e.target) && !dropdownButton.contains(e.target)) {
-        dropdown.style.display = "none";
+    if (dropdown) {
+        if (dropdown.style.display === "block" && !dropdown.contains(e.target) && !dropdownButton.contains(e.target)) {
+            dropdown.style.display = "none";
+        }
     }
 });
 
