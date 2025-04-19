@@ -69,7 +69,7 @@
         <div id="roadmap-modal-mark" class="hx-flex hx-items-center hx-gap-x-3 hx-mt-4">
           <button id="mark-done-{{ $id }}" class="mark-done-button not-prose hx-font-medium hx-cursor-pointer hx-px-6 hx-py-3 hx-rounded-full hx-text-center hx-text-white hx-inline-block hx-bg-primary-600 hover:hx-bg-primary-700 dark:hx-bg-primary-600 dark:hover:hx-bg-primary-700 hx-transition-all hx-ease-in hx-duration-200" onclick="markAsDone('{{ $id }}')">Mark as done</button>
           <svg id="status-icon-{{ $id }}" class="hx-w-6 hx-h-6 hx-text-gray-400" style="width: 50px;height: 50px;" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path id="todo-icon-{{ $id }}" stroke-width="2"  d="M12 3a9 9 0 1 1 0 18 9 9 0 0 1 0-18zm-4.5 4.5l9 9m0-9l-9 9" />
+            <path id="todo-icon-{{ $id }}" stroke-width="2" stroke="grey" d="M12 3a9 9 0 1 1 0 18 9 9 0 0 1 0-18zm-4.5 4.5l9 9m0-9l-9 9" />
             <path id="done-icon-{{ $id }}" class="hx-hidden" style="color: #008d0c;" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
           </svg>
         </div>
@@ -91,7 +91,7 @@
 </div>
 
 <a
-  {{ if $contributeCard }}href="{{ $link }}" target="_blank" {{ else }}href="?m={{ $id }}" rel="noreferrer"{{ end }}
+  {{ if $contributeCard }}href="{{ $link }}" target="_blank" {{ else }}href="?m={{ $id }}"{{ end }}
   {{ with $style }}style="{{ . | safeCSS }} height: 100px;"{{ end }}
     class="{{ $class }} hextra-feature-card hx-block hx-relative hx-overflow-hidden hx-rounded-3xl hx-border hx-border-gray-200 hover:hx-border-gray-300 dark:hx-border-neutral-800 dark:hover:hx-border-neutral-700 before:hx-pointer-events-none before:hx-absolute before:hx-inset-0 before:hx-bg-glass-gradient"
 >
@@ -104,7 +104,7 @@
 
   {{ if (not $contributeCard) }}
     <div style="position: absolute;top: 4px;right: 8px;">
-      <input class="hx-checkbox" type="checkbox" id="roadmap-{{ $id }}" aria-label="Checkbox for {{ $title }}" disabled />  
+      <input class="hx-checkbox" type="checkbox" id="roadmap-{{ $id }}" aria-label="Checkbox for {{ $title }}" />  
     </div>
   {{ end }}
 </a>

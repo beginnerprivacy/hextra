@@ -100,9 +100,6 @@ function updateRoadmap() {
             const navoverlay = document.querySelector('.nav-overlay')
             overlay.style.display = 'block';
             navoverlay.style.display = 'block';
-            const checkboxId = modalID.replace('modal-', '');
-            const checkbox = document.getElementById(`roadmap-${checkboxId}`);
-            if (checkbox) updateStatus(checkbox);
           }
         }
       }
@@ -145,12 +142,6 @@ function updateRoadmap() {
       closeRoadmapModal();
     }
   });
-  
-  document.querySelectorAll('.hx-checkbox').forEach(checkbox => {
-    checkbox.addEventListener('click', function(e) {
-      e.stopPropagation();
-    });
-  })
   
   window.addEventListener('popstate', handleModalParam);
   document.addEventListener('DOMContentLoaded', handleModalParam);
