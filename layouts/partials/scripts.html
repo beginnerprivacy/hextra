@@ -7,11 +7,11 @@
 {{- $jsSidebar := resources.Get "js/sidebar.js" -}}
 {{- $jsBackToTop := resources.Get "js/back-to-top.js" -}}
 {{- $jsRoadmap := resources.Get "js/roadmap.js" -}}
-{{- $jsQuiz := resources.Get "js/quiz.js" -}}
+{{- $jsQuizAssessment := resources.Get "js/quiz-assessment.js" -}}
 {{- $jsMisc := resources.Get "js/misc.js" -}}
 {{- $jsChecklists := resources.Get "js/checklists.js" -}}
 
-{{- $scripts := slice $jsTheme $jsMenu $jsCodeCopy $jsTabs $jsLang $jsFileTree $jsSidebar $jsBackToTop $jsQuiz $jsMisc $jsRoadmap $jsChecklists | resources.Concat "js/main.js" -}}
+{{- $scripts := slice $jsTheme $jsMenu $jsCodeCopy $jsTabs $jsLang $jsFileTree $jsSidebar $jsBackToTop $jsQuizAssessment $jsMisc $jsRoadmap $jsChecklists | resources.Concat "js/main.js" -}}
 {{- if hugo.IsProduction -}}
   {{- $scripts = $scripts | minify | fingerprint -}}
 {{- end -}}

@@ -5,14 +5,22 @@
 {{ $isSpanish := (index (split $url "/") 1) | eq "es" }}
 {{ $isChinese := (index (split $url "/") 1) | eq "zh-cn" }}
 
-<div class="threat-model-assessment" id="{{ $id }}" data-type="quiz">
+<script>
+const resultTexts = {
+  casual: "{{ $data.resultText.casual }}",
+  privacyConscious: "{{ $data.resultText.privacyConscious }}",
+  advanced: "{{ $data.resultText.advanced }}"
+};
+</script>
+
+<div class="threat-model-assessment" id="{{ $id }}" data-type="assessment">
   <button class="tm-start-button" onclick="startQuizAssessment('{{ $id }}')">
   {{ if $isSpanish }}
-    Iniciar Cuestionario
+    Iniciar Evaluación del Modelo de Amenazas
   {{ else if $isChinese }}
-    开始测验
+    开始威胁模型评估
   {{ else }}
-    Start Quiz
+    Start Threat Model Assessment
   {{ end }}
   </button>
   
@@ -22,7 +30,7 @@
       <h4>{{ $q.question }}</h4>
       <div class="tm-options">
         {{ range $q.answers }}
-        <button class="tm-option" data-iscorrect="{{ .isCorrect }}">
+        <button class="tm-option" data-score="{{ .score }}">
           {{ .text }}
         </button>
         {{ end }}
@@ -35,10 +43,10 @@
     </div>
     {{ end }}
     <div class="tm-result">
-      <h4 style="margin: 0;">{{ if $isSpanish }}Tu Puntuación:{{ else if $isChinese }}你的分数：{{ else }}Your Score:{{ end }}</h4>
+      <h4 style="margin: 0;">{{ if $isSpanish }}Tu Modelo de Amenaza:{{ else if $isChinese }}你的威胁模型:{{ else }}Your Threat Model:{{ end }}</h4>
       <div class="tm-result-content"></div>
       <button class="tm-restart" onclick="restartQuizAssessment('{{ $id }}')">
-        {{ if $isSpanish }}Repetir Cuestionario{{ else if $isChinese }}重新测验{{ else }}Retake Quiz{{ end }}
+        {{ if $isSpanish }}Repetir Evaluación{{ else if $isChinese }}重新评估{{ else }}Retake Assessment{{ end }}
       </button>
     </div>
   </div>
