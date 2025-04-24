@@ -24,14 +24,10 @@
         {{ range $q.answers }}
         <button class="tm-option" data-iscorrect="{{ .isCorrect }}">
           {{ .text }}
+          {{ if .image }}<img src="{{ .image }}">{{ end }}
         </button>
         {{ end }}
       </div>
-      {{ if gt $index 0 }}
-      <button class="tm-nav-button" onclick="previousQuestion('{{ $id }}')">
-        {{ if $isSpanish }}← Anterior{{ else if $isChinese }}← 之前{{ else }}← Previous{{ end }}
-      </button>
-      {{ end }}
     </div>
     {{ end }}
     <div class="tm-result">
