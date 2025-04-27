@@ -9,7 +9,7 @@
 
 <div class="recommendation-card">
   <div class="recommendation-header">
-      <img src="{{ $logo }}" class="recommendation-logo" alt="logo">
+      {{ if $logo }}<img src="{{ $logo }}" class="recommendation-logo" alt="logo">{{ end }}
       <h2 class="recommended-title">{{ $title }}</h2>
   </div>
   <p class="recommendation-text">{{- $text -}}</p>
