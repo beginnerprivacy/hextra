@@ -64,5 +64,41 @@
     }
   </script>
 
+  {{ if strings.Contains .Page.Permalink "/articles/" }}
+    <script type="application/ld+json">
+      {
+          "@context": "https://beginnerprivacy.com",
+          "@type": "Article",
+          "name": "{{ .Page.Title }}",
+          "url": "{{ .Page.Permalink }}",
+          "logo": "https://beginnerprivacy.com/images/logo.svg",
+          "sameAs": [
+              "https://www.youtube.com/@BeginnerPrivacy",
+              "https://www.x.com/BeginnerPrivacy",
+              "https://www.tiktok.com/@BeginnerPrivacy",
+              "https://github.com/BeginnerPrivacy",
+              "https://mastodon.social/@BeginnerPrivacy"
+          ]
+      }
+    </script>
+  {{ else }}
+    <script type="application/ld+json">
+      {
+          "@context": "https://schema.org",
+          "@type": "Organization",
+          "name": "Beginner Privacy",
+          "url": "https://beginnerprivacy.com",
+          "logo": "https://beginnerprivacy.com/images/logo.svg",
+          "sameAs": [
+              "https://www.youtube.com/@BeginnerPrivacy",
+              "https://www.x.com/BeginnerPrivacy",
+              "https://www.tiktok.com/@BeginnerPrivacy",
+              "https://github.com/BeginnerPrivacy",
+              "https://mastodon.social/@BeginnerPrivacy"
+          ]
+      }
+    </script>
+  {{ end }}
+
   {{ partial "custom/head-end.html" . }}
 </head>
