@@ -14,7 +14,6 @@
   {{- $displayPlaceholder = true -}}
 {{- end -}}
 
-
 <div class="mobile-menu-overlay [transition:background-color_1.5s_ease] hx-fixed hx-inset-0 hx-z-10 hx-bg-black/80 dark:hx-bg-black/60 hx-hidden"></div>
 <aside class="sidebar-container hx-flex hx-flex-col print:hx-hidden md:hx-top-16 md:hx-shrink-0 md:hx-w-64 md:hx-self-start max-md:[transform:translate3d(0,-100%,0)] {{ $sidebarClass }}">
   <!-- Search bar on small screen -->
@@ -25,6 +24,16 @@
     <ul class="hx-flex hx-flex-col hx-gap-1 md:hx-hidden">
       <!-- Nav -->
       {{ template "sidebar-main" (dict "context" site.Home "pageURL" $pageURL "page" $context "toc" true) -}}
+        <a class="hx-flex hx-items-center hx-justify-between hx-gap-2 hx-cursor-pointer hx-rounded hx-px-2 hx-py-1.5 hx-text-sm hx-transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+        hx-text-gray-500 hover:hx-bg-gray-100 hover:hx-text-gray-900 contrast-more:hx-border contrast-more:hx-border-transparent contrast-more:hx-text-gray-900 contrast-more:hover:hx-border-gray-900 dark:hx-text-neutral-400 dark:hover:hx-bg-primary-100/5 dark:hover:hx-text-gray-50 contrast-more:dark:hx-text-gray-50 contrast-more:dark:hover:hx-border-gray-50" href="https://shop.beginnerprivacy.com">
+          {{- if (strings.Contains $pageURL "/es/") -}}
+            Tienda
+          {{- else if (strings.Contains $pageURL "/zh-cn/") -}}
+            商店
+          {{- else -}}
+            Shop
+          {{- end -}}
+        </a>
       {{ template "sidebar-footer" }}
     </ul>
 
