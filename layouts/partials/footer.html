@@ -9,70 +9,92 @@
 {{- $logoHeight := .Site.Params.navbar.logo.height | default "30" -}}
 {{- $logoDarkPath := .Site.Params.navbar.logo.dark | default $logoPath -}}
 
-{{- $footerWidth := "hx-max-w-screen-xl" -}}
-{{- with .Site.Params.footer.width -}}
-  {{ if eq . "wide" -}}
-    {{ $footerWidth = "hx-max-w-[90rem]" -}}
-  {{ else if eq . "full" -}}
-    {{ $footerWidth = "max-w-full" -}}
-  {{ end -}}
-{{- end -}}
+<footer class="hextra-footer hx-pt-8">
+  <!-- Wave SVG -->
+  <div class="waves">
+    <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+      <defs>
+        <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+      </defs>
+      <g class="parallax">
+        <use class="wave" xlink:href="#gentle-wave" x="48" y="0" fill="rgba(243,244,246,0.7)" />
+        <use class="wave" xlink:href="#gentle-wave" x="48" y="3" fill="rgba(243,244,246,0.5)" />
+        <use class="wave" xlink:href="#gentle-wave" x="48" y="5" fill="rgba(243,244,246,0.3)" />
+        <use class="wave" xlink:href="#gentle-wave" x="48" y="7" fill="#f3f4f6" />
+      </g>
+    </svg>
+  </div>
 
-<footer class="hextra-footer hx-bg-gray-100 hx-pb-[env(safe-area-inset-bottom)] dark:hx-bg-neutral-900 print:hx-bg-transparent">
-  <div class="hextra-custom-footer hx-pl-[max(env(safe-area-inset-left),1.5rem)] hx-pr-[max(env(safe-area-inset-right),1.5rem)] hx-text-gray-600 dark:hx-text-gray-400">
-    <div class="footer-content hx-flex hx-justify-between hx-items-center hx-py-4">
-      <!-- Left Section -->
-      <div class="left-footer-section hx-text-sm" style="flex: 0 0 33.33%;">
-        {{- if or (strings.Contains .Page.Permalink "/es/") (eq .Lang "es") -}}
-          <p>{{- range .Site.Menus.footer -}}<span class="hx-text-center">{{ or (T .Identifier) .Name | safeHTML }}</span>{{- end -}}</p>
-          <p><a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener noreferrer">CC BY-SA 4.0</a> Beginner Privacy y colaboradores. <strong><a href="/es/about/privacy-policy">Aviso de privacidad.</a></strong></p>
-        {{- else if or (strings.Contains .Page.Permalink "/zh-cn/") (eq .Lang "zh-cn") -}}
-          <p>{{- range .Site.Menus.footer -}}<span class="hx-text-center">{{ or (T .Identifier) .Name | safeHTML }}</span>{{- end -}}</p>
-          <p><a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener noreferrer">CC BY-SA 4.0</a> Beginner Privacy 和贡献者。 <strong><a href="/zh-cn/about/privacy-policy">隐私声明。</a></strong></p>
-        {{- else -}}
-          <p>{{- range .Site.Menus.footer -}}<span class="hx-text-center">{{ or (T .Identifier) .Name | safeHTML }}</span>{{- end -}}</p>
-          <p><a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener noreferrer">CC BY-SA 4.0</a> Beginner Privacy & contributors. <strong><a href="/about/privacy-policy">Privacy notice.</a></strong></p>
-        {{- end -}}
-      </div>
-      <!-- Middle Section -->
-      <div class="middle-footer-section hx-flex hx-justify-center hx-items-center" style="flex: 0 0 33.33%;">
+  <div class="footer-container mx-auto">
+    <div class="footer-content hx-flex hx-flex-col md:hx-flex-row hx-justify-between hx-items-center hx-py-4 hx-pt-12">
+      <!-- Logo Section -->
+      <div class="logo-section hx-flex hx-justify-center hx-items-center hx-mb-6 md:hx-mb-0">
         <a href="{{ .Site.Home.RelPermalink }}">
-          <img class="hx-block dark:hx-hidden" src="{{ $logoPath | relURL }}" alt="Logo" height="30" width="30" />
-          <img class="hx-hidden dark:hx-block" src="{{ $logoDarkPath | relURL }}" alt="Logo" height="30" width="30" />
+          <img class="hx-block dark:hx-hidden" src="{{ $logoPath | relURL }}" alt="Logo" height="50" width="50" />
+          <img class="hx-hidden dark:hx-block" src="{{ $logoDarkPath | relURL }}" alt="Logo" height="50" width="50" />
         </a>
       </div>
-      <!-- Right Section -->
-      <div class="right-footer-section hx-flex hx-justify-end hx-gap-4" style="flex: 0 0 33.33%;">
-        <a href="https://x.com/BeginnerPrivacy" title="𝕏" target="_blank" rel="noopener noreferrer" class="hx-text-gray-600 dark:hx-text-gray-400 hover:hx-text-gray-800 dark:hover:hx-text-gray-200">
-          {{ partial "utils/icon.html" (dict "name" "x-twitter" "attributes" "height=20") }}
+      <!-- Navigation Links Section -->
+      <div class="footer-nav-links hx-flex hx-flex-wrap hx-justify-center hx-gap-8 hx-mb-6 md:hx-mb-0">
+          {{ if (strings.Contains .Page.Permalink "/es/") }}
+            <a href="/" class="hx-text-black dark:hx-text-black dark:hx-text-white">Inicio</a>
+            <a href="about" class="hx-ml-4 hx-text-black dark:hx-text-black dark:hx-text-white">Acerca De</a>
+            <a href="articles" class="hx-ml-4 hx-text-black dark:hx-text-white">Artículos</a>
+            <a href="checklists" class="hx-ml-4 hx-text-black dark:hx-text-white">Listas de Verificación</a>
+            <a href="https://shop.beginnerprivacy.com" class="hx-ml-4 hx-text-black dark:hx-text-white">Tienda</a>
+            <a href="about/contact" class="hx-ml-4 hx-text-black dark:hx-text-white">Contacto</a>
+            <a href="about/contributors" class="hx-ml-4 hx-text-black dark:hx-text-white">Contribuyentes</a>
+          {{ else if (strings.Contains .Page.Permalink "/zh-cn/") }}
+            <a href="/" class="hx-text-black dark:hx-text-black dark:hx-text-white">首页</a>
+            <a href="about" class="hx-ml-4 hx-text-black dark:hx-text-black dark:hx-text-white">关于</a>
+            <a href="articles" class="hx-ml-4 hx-text-black dark:hx-text-white">文章</a>
+            <a href="checklists" class="hx-ml-4 hx-text-black dark:hx-text-white">检查表</a>
+            <a href="https://shop.beginnerprivacy.com" class="hx-ml-4 hx-text-black dark:hx-text-white">商店</a>
+            <a href="about/contact" class="hx-ml-4 hx-text-black dark:hx-text-white">联系</a>
+            <a href="about/contributors" class="hx-ml-4 hx-text-black dark:hx-text-white">贡献者</a>
+          {{ else }}
+            <a href="/" class="hx-text-black dark:hx-text-black dark:hx-text-white">Home</a>
+            <a href="about" class="hx-ml-4 hx-text-black dark:hx-text-black dark:hx-text-white">About</a>
+            <a href="articles" class="hx-ml-4 hx-text-black dark:hx-text-white">Articles</a>
+            <a href="checklists" class="hx-ml-4 hx-text-black dark:hx-text-white">Checklists</a>
+            <a href="https://shop.beginnerprivacy.com" class="hx-ml-4 hx-text-black dark:hx-text-white">Shop</a>
+            <a href="about/contact" class="hx-ml-4 hx-text-black dark:hx-text-white">Contact</a>
+            <a href="about/contributors" class="hx-ml-4 hx-text-black dark:hx-text-white">Contributors</a>
+          {{ end }}
+      </div>
+      <!-- Social Media Section -->
+      <div class="social-media hx-flex hx-flex-wrap hx-justify-center hx-gap-4">
+        <a href="https://x.com/BeginnerPrivacy" title="𝕏" target="_blank" rel="noopener noreferrer" class="hx-text-black dark:hx-text-white">
+          {{ partial "utils/icon.html" (dict "name" "x-twitter" "attributes" "height=24") }}
         </a>
-        <a href="https://youtube.com/@BeginnerPrivacy" title="YouTube" target="_blank" rel="noopener noreferrer" class="hx-text-gray-600 dark:hx-text-gray-400 hover:hx-text-gray-800 dark:hover:hx-text-gray-200">
-          {{ partial "utils/icon.html" (dict "name" "youtube" "attributes" "height=20") }}
+        <a href="https://youtube.com/@BeginnerPrivacy" title="YouTube" target="_blank" rel="noopener noreferrer" class="hx-text-black dark:hx-text-white">
+          {{ partial "utils/icon.html" (dict "name" "youtube" "attributes" "height=24") }}
         </a>
-        <a href="https://tiktok.com/@BeginnerPrivacy" target="_blank" title="TikTok" rel="noopener noreferrer" class="hx-text-gray-600 dark:hx-text-gray-400 hover:hx-text-gray-800 dark:hover:hx-text-gray-200">
-          {{ partial "utils/icon.html" (dict "name" "tiktok" "attributes" "height=20") }}
+        <a href="https://tiktok.com/@BeginnerPrivacy" target="_blank" title="TikTok" rel="noopener noreferrer" class="hx-text-black dark:hx-text-white">
+          {{ partial "utils/icon.html" (dict "name" "tiktok" "attributes" "height=24") }}
         </a>
-        <a href="https://github.com/BeginnerPrivacy" title="GitHub" target="_blank" rel="noopener noreferrer" class="hx-text-gray-600 dark:hx-text-gray-400 hover:hx-text-gray-800 dark:hover:hx-text-gray-200">
-          {{ partial "utils/icon.html" (dict "name" "github" "attributes" "height=20") }}
+        <a href="https://github.com/BeginnerPrivacy" title="GitHub" target="_blank" rel="noopener noreferrer" class="hx-text-black dark:hx-text-white">
+          {{ partial "utils/icon.html" (dict "name" "github" "attributes" "height=24") }}
         </a>
-        <a href="https://mastodon.social/@BeginnerPrivacy" target="_blank" title="Mastodon" rel="noopener noreferrer" class="hx-text-gray-600 dark:hx-text-gray-400 hover:hx-text-gray-800 dark:hover:hx-text-gray-200">
-          {{ partial "utils/icon.html" (dict "name" "mastodon" "attributes" "height=20") }}
+        <a href="https://mastodon.social/@BeginnerPrivacy" target="_blank" title="Mastodon" rel="noopener noreferrer" class="hx-text-black dark:hx-text-white">
+          {{ partial "utils/icon.html" (dict "name" "mastodon" "attributes" "height=24") }}
         </a>
-        <a {{ if (strings.Contains .Page.Permalink "/es/") }}href="/es/about/join-simplex-group"{{ else if (strings.Contains .Page.Permalink "/zh-cn/") }}href="/zh-cn/about/join-simplex-group"{{ else }}href="/about/join-simplex-group"{{ end }} target="_blank" title="SimpleX Chat" rel="noopener noreferrer" class="hx-text-gray-600 dark:hx-text-gray-400 hover:hx-text-gray-800 dark:hover:hx-text-gray-200">
-          {{ partial "utils/icon.html" (dict "name" "simplex" "attributes" "height=20") }}
+        <a {{ if (strings.Contains .Page.Permalink "/es/") }}href="/es/about/join-simplex-group"{{ else if (strings.Contains .Page.Permalink "/zh-cn/") }}href="/zh-cn/about/join-simplex-group"{{ else }}href="/about/join-simplex-group"{{ end }} target="_blank" title="SimpleX Chat" rel="noopener noreferrer" class="hx-text-black dark:hx-text-white ">
+          {{ partial "utils/icon.html" (dict "name" "simplex" "attributes" "height=24") }}
         </a>
       </div>
     </div>
+    <!-- Divider Line -->
+    <hr class="hx-border-black/5 dark:hx-border-white/10 hx-my-2" />
+    <!-- Copyright Section -->
+    <div class="copyright-section hx-text-center hx-text-black dark:hx-text-white hx-py-4">
+            {{- if or (strings.Contains .Page.Permalink "/es/") -}}
+          <p><a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener noreferrer">CC BY-SA 4.0</a> Beginner Privacy y colaboradores. <strong><a href="/es/about/privacy-policy">Aviso de privacidad.</a></strong></p>
+        {{- else if or (strings.Contains .Page.Permalink "/zh-cn/") -}}
+          <p><a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener noreferrer">CC BY-SA 4.0</a> Beginner Privacy 和贡献者。 <strong><a href="/zh-cn/about/privacy-policy">隐私声明。</a></strong></p>
+        {{- else -}}
+          <p><a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener noreferrer">CC BY-SA 4.0</a> Beginner Privacy & contributors. <strong><a href="/about/privacy-policy">Privacy notice.</a></strong></p>
+        {{- end -}}
+    </div>
   </div>
 </footer>
-
-{{- define "theme-credit" -}}
-  <a class="hx-flex hx-text-sm hx-items-center hx-gap-1 hx-text-current" target="_blank" rel="noopener noreferrer" title="Hextra GitHub Homepage" href="https://github.com/imfing/hextra">
-    <span>
-      {{- . | markdownify -}}
-      {{- if strings.Contains . " Hextra" -}}
-        {{- partial "utils/icon.html" (dict "name" "hextra" "attributes" `height=1em class="hx-inline-block ltr:hx-ml-1 rtl:hx-mr-1 hx-align-[-2.5px]"`) -}}
-      {{- end -}}
-    </span>
-  </a>
-{{- end -}}
