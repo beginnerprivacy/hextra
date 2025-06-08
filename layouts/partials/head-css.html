@@ -17,9 +17,25 @@
 
 <!-- Custom CSS -->
 {{- $custom := resources.Get "css/custom.css" }}
+{{- $roadmap := resources.Get "css/components/custom/roadmap.css" }}
+{{- $checklists := resources.Get "css/components/custom/checklists.css" }}
+{{- $about := resources.Get "css/components/custom/about.css" }}
+{{- $footer := resources.Get "css/components/custom/footer.css" }}
 {{- if hugo.IsProduction -}}
   {{- $custom = $custom | minify | fingerprint }}
+  {{- $roadmap = $roadmap | minify | fingerprint }}
+  {{- $checklists = $checklists | minify | fingerprint }}
+  {{- $about = $about | minify | fingerprint }}
+  {{- $footer = $footer | minify | fingerprint }}
   <link href="{{ $custom.RelPermalink }}" rel="stylesheet" integrity="{{ $custom.Data.Integrity }}" />
+  <link href="{{ $roadmap.RelPermalink }}" rel="stylesheet" integrity="{{ $roadmap.Data.Integrity }}" />
+  <link href="{{ $checklists.RelPermalink }}" rel="stylesheet" integrity="{{ $checklists.Data.Integrity }}" />
+  <link href="{{ $about.RelPermalink }}" rel="stylesheet" integrity="{{ $about.Data.Integrity }}" />
+  <link href="{{ $footer.RelPermalink }}" rel="stylesheet" integrity="{{ $footer.Data.Integrity }}" />
 {{- else }}
   <link href="{{ $custom.RelPermalink }}" rel="stylesheet" />
+  <link href="{{ $roadmap.RelPermalink }}" rel="stylesheet" />
+  <link href="{{ $checklists.RelPermalink }}" rel="stylesheet" />
+  <link href="{{ $about.RelPermalink }}" rel="stylesheet" />
+  <link href="{{ $footer.RelPermalink }}" rel="stylesheet" />
 {{- end }}
