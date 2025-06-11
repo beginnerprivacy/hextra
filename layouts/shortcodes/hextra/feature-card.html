@@ -95,7 +95,7 @@
 <a
   {{ if $contributeCard }}href="{{ $link }}" target="_blank" {{ else }}href="?m={{ $id }}"{{ end }}
   {{ with $style }}style="{{ . | safeCSS }} height: 100px;"{{ end }}
-    class="{{ $class }} hextra-feature-card hx-block hx-relative hx-overflow-hidden hx-rounded-3xl hx-border hx-border-gray-200 hover:hx-border-gray-300 dark:hx-border-neutral-800 dark:hover:hx-border-neutral-700 before:hx-pointer-events-none before:hx-absolute before:hx-inset-0 before:hx-bg-glass-gradient"
+    class="{{ $class }} hextra-feature-card hx-block hx-relative hx-overflow-hidden hx-rounded-xl hx-border hx-border-gray-200 hover:hx-border-gray-300 dark:hx-border-neutral-800 dark:hover:hx-border-neutral-700 before:hx-pointer-events-none before:hx-absolute before:hx-inset-0 before:hx-bg-glass-gradient"
 >
   <div class="hx-relative hx-w-full hx-flex hx-flex-col hx-justify-center hx-items-center" style="height: 100%;">
     {{ if (not $link) }}<div class="coming-soon-label">Coming Soon</div>{{ end }}
