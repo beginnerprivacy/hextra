@@ -118,6 +118,7 @@ function updateRoadmap() {
     const navoverlay = document.querySelector('.nav-overlay')
     overlay.style.display = 'none';
     navoverlay.style.display = 'none';
+    document.querySelector('html').style.removeProperty("overflow");
     return false;
   }
   
@@ -129,6 +130,7 @@ function updateRoadmap() {
       url.searchParams.set('m', modalID);
       window.history.pushState({}, '', url);
       handleModalParam();
+      document.querySelector('html').style.overflow = "hidden";
     });
   });
   

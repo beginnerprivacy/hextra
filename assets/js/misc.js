@@ -68,7 +68,8 @@ sections.forEach(section => {
 });
 
 window.addEventListener('wheel', function(event) {
-    if ((window.location.pathname === '/' || window.location.pathname === '/es/' || window.location.pathname === '/zh-cn/') && window.innerWidth >= 1000 && window.innerHeight >= 825) {
+    const urlParams = new URLSearchParams(window.location.search);
+    if (!urlParams.has('m') && (window.location.pathname === '/' || window.location.pathname === '/es/' || window.location.pathname === '/zh-cn/') && window.innerWidth >= 1000 && window.innerHeight >= 825) {
         event.preventDefault();
         if (event.deltaY > 0) {
             // Scrolling down
