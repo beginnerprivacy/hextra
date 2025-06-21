@@ -88,6 +88,26 @@ if (window.location.pathname === '/' || window.location.pathname === '/es/' || w
             }
         }
     });
+    window.addEventListener('keydown', function(event) {
+        const urlParams = new URLSearchParams(window.location.search);
+        if (!urlParams.has('m') && window.innerHeight >= 825) {
+            event.preventDefault();
+            if (event.key === "ArrowDown") {
+                // Scrolling down
+                if (currentSectionIndex < sections.length - 1) {
+                    sections[currentSectionIndex + 1].scrollIntoView({ behavior: 'smooth' });
+                }
+            } 
+            else if (event.key === "ArrowUp") {
+                // Scrolling up
+                if (currentSectionIndex > 1) {
+                    sections[currentSectionIndex - 1].scrollIntoView({ behavior: 'smooth' });
+                } else {
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                }
+            }
+        }
+    });
 }
 
 // Footer waves color
