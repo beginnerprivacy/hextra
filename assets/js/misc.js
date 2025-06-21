@@ -67,11 +67,27 @@ sections.forEach(section => {
     observerScroll.observe(section);
 });
 
+let isSearchInputFocused = false;
+
 if (window.location.pathname === '/' || window.location.pathname === '/es/' || window.location.pathname === '/zh-cn/') {
     document.querySelector('html').style.overflow = "hidden";
+
+    const searchInput = document.querySelector('.search-input')
+    const searchResults = document.querySelector('.search-results')
+    if (searchInput) {
+        searchInput.addEventListener('focus', function() {
+            isSearchInputFocused = true;
+        });
+        document.addEventListener('click', function(event) {
+            if (!searchInput.contains(event.target) && !searchResults.contains(event.target)) {
+                isSearchInputFocused = false;
+            }
+        });
+    }
+
     window.addEventListener('wheel', function(event) {
         const urlParams = new URLSearchParams(window.location.search);
-        if (!urlParams.has('m') && window.innerHeight >= 825) {
+        if (!urlParams.has('m') && window.innerHeight >= 825 && !isSearchInputFocused) {
             event.preventDefault();
             if (event.deltaY > 0) {
                 // Scrolling down
@@ -88,9 +104,10 @@ if (window.location.pathname === '/' || window.location.pathname === '/es/' || w
             }
         }
     });
+
     window.addEventListener('keydown', function(event) {
         const urlParams = new URLSearchParams(window.location.search);
-        if (!urlParams.has('m') && window.innerHeight >= 825) {
+        if (!urlParams.has('m') && window.innerHeight >= 825 && !isSearchInputFocused) {
             event.preventDefault();
             if (event.key === "ArrowDown") {
                 // Scrolling down
