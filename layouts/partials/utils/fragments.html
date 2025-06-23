@@ -16,6 +16,11 @@
   {{ range $h2 := $h1.Headings }}
     {{ $headingKeys = $headingKeys | append (printf "%s#%s" $h2.ID $h2.Title) }}
     {{ $headingTitles = $headingTitles | append (printf "## %s" $h2.Title) }}
+
+    {{ range $h3 := $h2.Headings }}
+      {{ $headingKeys = $headingKeys | append (printf "%s#%s" $h3.ID $h3.Title) }}
+      {{ $headingTitles = $headingTitles | append (printf "### %s" $h3.Title) }}
+    {{ end }}
   {{ end }}
 {{ end }}
 
