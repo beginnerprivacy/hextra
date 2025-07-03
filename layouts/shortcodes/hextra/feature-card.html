@@ -105,8 +105,8 @@
   </div>
 
   {{ if (not $contributeCard) }}
-    <div style="position: absolute;top: 4px;right: 8px;">
-      <input class="hx-checkbox" type="checkbox" id="roadmap-{{ $id }}" aria-label="Checkbox for {{ $title }}" />  
+    <div style="position: absolute;top: 4px;right: 8px;" class="roadmap-checkbox">
+      <input type="checkbox" id="roadmap-{{ $id }}" aria-label="Checkbox for {{ $title }}" />  
     </div>
   {{ end }}
 </a>
