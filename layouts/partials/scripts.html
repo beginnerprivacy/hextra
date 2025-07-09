@@ -10,8 +10,9 @@
 {{- $jsQuizAssessment := resources.Get "js/quiz-assessment.js" -}}
 {{- $jsMisc := resources.Get "js/misc.js" -}}
 {{- $jsChecklists := resources.Get "js/checklists.js" -}}
+{{- $jsNews := resources.Get "js/news.js" -}}
 
-{{- $scripts := slice $jsTheme $jsMenu $jsCodeCopy $jsTabs $jsLang $jsFileTree $jsSidebar $jsBackToTop $jsQuizAssessment $jsMisc $jsRoadmap $jsChecklists | resources.Concat "js/main.js" -}}
+{{- $scripts := slice $jsTheme $jsMenu $jsCodeCopy $jsTabs $jsLang $jsFileTree $jsSidebar $jsBackToTop $jsQuizAssessment $jsMisc $jsRoadmap $jsChecklists $jsNews | resources.Concat "js/main.js" -}}
 {{- if hugo.IsProduction -}}
   {{- $scripts = $scripts | minify | fingerprint -}}
 {{- end -}}
