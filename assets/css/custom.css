@@ -394,6 +394,11 @@
     margin-top: 0.5rem;
 }
 
+.news-warning-close {
+    font-size: xx-large;
+    cursor: pointer;
+}
+
 .news-pagination button {
     padding: 8px 16px;
     background: #007bff;

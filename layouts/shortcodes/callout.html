@@ -16,4 +16,7 @@
 
 {{- $class := cond (eq $type "info") $infoClass (cond (eq $type "warning") $warningClass (cond (eq $type "error") $errorClass $defaultClass)) -}}
 
-{{- partial "shortcodes/callout.html" (dict "content" $content "emoji" $emoji "icon" $icon "class" $class) -}}
+{{- $styleClass := .Get "styleClass" -}}
+{{- $customClass := .Get "customClass" -}}
+
+{{- partial "shortcodes/callout.html" (dict "content" $content "emoji" $emoji "icon" $icon "class" $class "styleClass" $styleClass "customClass" $customClass) -}}

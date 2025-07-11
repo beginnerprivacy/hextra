@@ -87,3 +87,9 @@ function renderNews() {
 }
 
 window.addEventListener('DOMContentLoaded', fetchNews);
+
+// News warning callout
+const newsWarningClose = document.querySelector('.news-warning-close')
+newsWarningClose.addEventListener('click', () => {
+  document.querySelector('.news-warning-container').style.display = 'none';  
+})
