@@ -240,7 +240,13 @@ input[type="radio"]:checked + label {
     border-bottom-right-radius: 20px;
 }
 
-.roadmap-checkbox input[type="checkbox"] {
+.roadmap-checkbox {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+}
+
+.roadmap-checkbox div[role="checkbox"] {
     width: 13px;
     height: 13px;
     appearance: none;
@@ -251,11 +257,11 @@ input[type="radio"]:checked + label {
     position: relative;
 }
 
-.roadmap-checkbox input[type="checkbox"]:checked {
+.roadmap-checkbox div[role="checkbox"][aria-checked="true"] {
     background-color: #006be6;
 }
 
-.roadmap-checkbox input[type="checkbox"]:checked::after {
+.roadmap-checkbox div[role="checkbox"][aria-checked="true"]::after {
     content: "";
     position: absolute;
     left: 4px;
