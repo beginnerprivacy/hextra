@@ -70,9 +70,15 @@ function renderNews() {
             card.rel = 'noreferrer nofollow';
             card.target = '_blank';
 
+            if (item.title.length > 115) {
+                truncatedTitle = item.title.substring(0, 115) + "...";
+            } else {
+                truncatedTitle = item.title
+            }
+
             card.innerHTML = `
                 <div class="news-card-content">
-                    <h3>${item.title}</h3>
+                    <h3>${truncatedTitle}</h3>
                 </div>
                 <div class="news-card-footer">
                     <small>${item.source}</small>
